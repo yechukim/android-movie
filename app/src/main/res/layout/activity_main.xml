@@ -22,7 +22,7 @@
                 android:id="@+id/const1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#1E2657"
+                android:background="#2A2C37"
                 android:padding="30dp">
 
                 <TextView
@@ -53,7 +53,7 @@
                     android:id="@+id/ic_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toBottomOf="@+id/genre_time"
@@ -73,15 +73,13 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="44dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="45dp"
                     android:background="#003C3C3C"
                     android:text="군도"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.019"
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,13 +99,11 @@
                     android:id="@+id/release_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="2014.07.23 개봉"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.07"
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -115,12 +111,10 @@
                     android:id="@+id/genre_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="액션 / 137분"
                     android:textColor="#FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toBottomOf="@+id/release_date" />
 
