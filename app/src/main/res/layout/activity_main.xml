@@ -162,9 +162,9 @@
                         android:text="평점" />
 
                     <LinearLayout
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <RatingBar
@@ -176,9 +176,9 @@
 
                         <TextView
                             android:id="@+id/rate_num"
-                           android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="8.2" />
                     </LinearLayout>
 
@@ -321,7 +321,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="320dp"
                 android:layout_marginTop="15dp"
                 android:background="#FFFFFF">
 
@@ -362,16 +362,29 @@
                     app:layout_constraintStart_toEndOf="@+id/onlinoneline"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ListView
+                    android:id="@+id/my_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/onlinoneline"
+                    tools:listitem="@layout/my_list_item" />
+
                 <Button
                     android:id="@+id/see_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="130dp"
+                    android:layout_marginTop="250dp"
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/see_all_btn"
                     android:text="모두보기"
                     android:textColor="#1B093C"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

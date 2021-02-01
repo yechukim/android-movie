@@ -3,4 +3,5 @@
     android:shape="rectangle">
 <stroke android:color="#523B7A"
     android:width="5px"/>
+    <solid android:color="#ffffff"/>
 </shape>
