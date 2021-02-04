@@ -8,14 +8,14 @@ public class MyListItem {
     private String userId;
     private String comment;
     private String comment_time;
-    private int comment_rating;
+    private float comment_rating;
     private String recommend;
 
     MyListItem() {
 
     }
 
-    public MyListItem(Drawable userImage, String userId, String comment, String comment_time, int comment_rating, String recommend) {
+    public MyListItem(Drawable userImage, String userId, String comment, String comment_time, float comment_rating, String recommend) {
         this.userImage = userImage;
         this.userId = userId;
         this.comment = comment;
@@ -56,11 +56,11 @@ public class MyListItem {
         this.comment_time = comment_time;
     }
 
-    public int getComment_rating() {
+    public float getComment_rating() {
         return comment_rating;
     }
 
-    public void setComment_rating(int comment_rating) {
+    public void setComment_rating(float comment_rating) {
         this.comment_rating = comment_rating;
     }
 

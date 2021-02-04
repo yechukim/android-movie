@@ -3,12 +3,13 @@ package com.example.yechu.mymovie;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -19,10 +20,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     //ui
     ImageView ic_likes, ic_hate;
-    TextView num_likes, num_hates;
+    TextView num_likes, num_hates, write;
     int count_likes = 15;
     int count_hates = 1;
     boolean likes_status, hates_status = false;
+    Button see_all;
 
     //comment lists
     ListViewAdapter listViewAdapter;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         num_likes = findViewById(R.id.num_likes);
         num_hates = findViewById(R.id.num_hates);
         my_list = findViewById(R.id.my_list);
+        write = findViewById(R.id.write);
+        see_all = findViewById(R.id.see_all);
 
         //like
         ic_likes.setOnClickListener(new View.OnClickListener() {
@@ -106,11 +110,33 @@ public class MainActivity extends AppCompatActivity {
         my_list = findViewById(R.id.my_list);
         my_list.setAdapter(listViewAdapter);
 
-        // listViewAdapter.addComment();
+        //add comments
+        listViewAdapter.addComment("hello1", "첫 댓글인가요",3, 1);
+        listViewAdapter.addComment("movietheBest","이거 진짜 재밌던데요?",5,0);
+
+        //작성하기 클릭
+        write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WriteComment_Activity.class);
+                startActivityForResult(intent,100);
+
+            }
+        });
+
+        //모두보기 클릭
+        see_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SeeAllComments_Activity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
-    public class ListViewAdapter extends BaseAdapter {
+    public static class ListViewAdapter extends BaseAdapter {
         //arraylist
         private ArrayList<MyListItem> itemArrayList = new ArrayList<>();
 
@@ -163,9 +189,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        public void addComment(String userId, String comment, int ratingBar, int recommendCount) {
-            MyListItem myListItem = new MyListItem();
-            itemArrayList.add(myListItem);
+        public void addComment(String userId, String comment, float ratingBar, int recommendCount) {
+            MyListItem item = new MyListItem();
+            item.setUserId(userId);
+            item.setComment(comment);
+            item.setComment_rating(ratingBar);
+            item.setRecommend(String.valueOf(recommendCount));
+            itemArrayList.add(item);
         }
     }
 }
