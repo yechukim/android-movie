@@ -11,9 +11,7 @@
     -->
 
     <!--app bar main 가져옴  -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
@@ -29,7 +27,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:logo="@drawable/ic_hamburger_menu"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="영화 목록" />
 
@@ -51,6 +48,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"
+
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

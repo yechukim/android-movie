@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -39,10 +41,12 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         //drawer toggle
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
+        //toggle.setDrawerArrowDrawable(R.drawable.ic_hamburger_menu);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -74,7 +78,18 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int id = item.getItemId();
+       switch (id){
+           case R.id.nav_list: onFragmentSelected(0,null);
+           break;
+           case R.id.nav_review: onFragmentSelected(1,null);
+           break;
+           case R.id.nav_book: onFragmentSelected(2,null);
+           break;
+
+       }
+       drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
@@ -89,8 +104,14 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
             toolbar.setTitle("영화 API");
         }else if(position==2){
             curFragment = movieBook;
-            toolbar.setTitle("영황 예약");
+            toolbar.setTitle("영화 예약");
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+        replaceFragment(curFragment);
     }
+
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+    }
+
+
 }

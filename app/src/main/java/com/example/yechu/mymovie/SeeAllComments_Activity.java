@@ -20,7 +20,7 @@ public class SeeAllComments_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //load all comments
-        MainActivity.ListViewAdapter listViewAdapter = new MainActivity.ListViewAdapter();
+        ListViewAdapter listViewAdapter = new ListViewAdapter();
         ListView all_lists = findViewById(R.id.all_lists);
         all_lists.setAdapter(listViewAdapter);
     }

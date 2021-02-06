@@ -8,24 +8,8 @@
     android:orientation="vertical"
     tools:context=".ui.MovieFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:logo="@drawable/ic_hamburger_menu"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="영화 목록" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.viewpager.widget.ViewPager
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pager"/>
+        android:id="@+id/pager1"/>
 </LinearLayout>

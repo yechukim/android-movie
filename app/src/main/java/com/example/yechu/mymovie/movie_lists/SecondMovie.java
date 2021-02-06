@@ -1,4 +1,4 @@
-package com.example.yechu.mymovie.ui;
+package com.example.yechu.mymovie.movie_lists;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.yechu.mymovie.R;
 
-public class APIFragment extends Fragment {
+public class SecondMovie extends Fragment {
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_api, container, false);
+        View bookView = inflater.inflate(R.layout.second_movie, container, false);
+        return bookView;
     }
+
 }
