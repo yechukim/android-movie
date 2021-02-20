@@ -1,4 +1,4 @@
-package com.example.yechu.mymovie;
+package com.example.yechu.mymovie.commets;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WriteComment_Activity extends AppCompatActivity {
+import com.example.yechu.mymovie.R;
+
+public class WriteCommentsActivity extends AppCompatActivity {
 
     //ui
     TextView title;
@@ -26,7 +28,7 @@ public class WriteComment_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write_comment);
+        setContentView(R.layout.act_c_write);
 
         title = findViewById(R.id.title);
         commentSection = findViewById(R.id.commentSection);

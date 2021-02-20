@@ -1,4 +1,4 @@
-package com.example.yechu.mymovie;
+package com.example.yechu.mymovie.commets;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.example.yechu.mymovie.R;
+import com.example.yechu.mymovie.commets.MyListItem;
 
 import java.util.ArrayList;
 
@@ -42,7 +45,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.my_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.c_list, parent, false);
         }
 
         ImageView userImage = convertView.findViewById(R.id.userImage);

@@ -16,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.yechu.mymovie.commets.AllCommentsActivity;
+import com.example.yechu.mymovie.commets.WriteCommentsActivity;
+import com.example.yechu.mymovie.commets.ListViewAdapter;
+
 public class DetailsFragment extends Fragment{
 
     //ui
@@ -33,7 +37,8 @@ public class DetailsFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View details = inflater.inflate(R.layout.fragment_details, container, false);
+        View details = inflater.inflate(R.layout.frag_btn_detail, container, false);
+
         ic_likes = details.findViewById(R.id.ic_likes);
         ic_hate = details.findViewById(R.id.ic_hates);
         num_likes = details.findViewById(R.id.num_likes);
@@ -45,12 +50,7 @@ public class DetailsFragment extends Fragment{
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("영화 상세");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         //like
         ic_likes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +126,7 @@ public class DetailsFragment extends Fragment{
         write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WriteComment_Activity.class);
+                Intent intent = new Intent(getActivity(), WriteCommentsActivity.class);
                 startActivityForResult(intent, 100);
 
             }
@@ -136,11 +136,34 @@ public class DetailsFragment extends Fragment{
         see_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SeeAllComments_Activity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), AllCommentsActivity.class);
+                startActivityForResult(intent, 200);
             }
         });
 
         return details;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String url = "http://boostcourse-appapi.connect.or.kr:10000";
+        if(getArguments()!=null){
+            Bundle args = getArguments();
+            int id = args.getInt("bundle_key");// id값 가져오기
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100){
+
+        } else if(requestCode ==200){
+
+        }
+
+    }
+
 }

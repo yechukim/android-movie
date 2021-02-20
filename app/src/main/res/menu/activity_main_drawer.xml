@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_movie"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_list"
             android:icon="@drawable/ic_list"
@@ -17,11 +19,14 @@
             android:icon="@drawable/ic_book"
             android:title="예매하기" />
     </group>
-
-    <group>
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_settings"
-            android:title="사용자 설정"/>
-    </group>
+    <item android:title="설정">
+        <menu>
+            <group android:id="@+id/setting">
+                <item
+                    android:id="@+id/nav_setting"
+                    android:icon="@drawable/ic_settings"
+                    android:title="사용자 설정" />
+            </group>
+        </menu>
+    </item>
 </menu>

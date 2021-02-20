@@ -372,7 +372,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/onlinoneline"
-                    tools:listitem="@layout/my_list_item" />
+                    tools:listitem="@layout/c_list" />
 
                 <Button
                     android:id="@+id/see_all"

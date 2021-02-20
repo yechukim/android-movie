@@ -1,4 +1,4 @@
-package com.example.yechu.mymovie;
+package com.example.yechu.mymovie.commets;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,16 +8,19 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-public class SeeAllComments_Activity extends AppCompatActivity {
+import com.example.yechu.mymovie.R;
+import com.example.yechu.mymovie.commets.ListViewAdapter;
+
+public class AllCommentsActivity extends AppCompatActivity {
 
     ListView my_list_item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_see_all_comments_);
+        setContentView(R.layout.act_c_all);
 
         //뒤로 액션바
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //load all comments
         ListViewAdapter listViewAdapter = new ListViewAdapter();
