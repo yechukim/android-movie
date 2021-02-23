@@ -1,17 +1,21 @@
 package com.example.yechu.mymovie.commets;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yechu.mymovie.MainActivity;
 import com.example.yechu.mymovie.R;
 
 public class WriteCommentsActivity extends AppCompatActivity {
@@ -21,9 +25,10 @@ public class WriteCommentsActivity extends AppCompatActivity {
     EditText commentSection;
     RatingBar ratingBar;
     Button saveBtn, cancelBtn;
+    ImageView gradeImg;
 
     //counts 100
-    int count =0;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,28 @@ public class WriteCommentsActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         saveBtn = findViewById(R.id.saveBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
+        gradeImg = findViewById(R.id.movie_age);
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            String mTitle = bundle.getString("movie");
+            String grade = bundle.getString("grade");
+            int gradeInt = Integer.parseInt(grade);
+            title.setText(mTitle);
+
+            if (gradeInt == 12) {
+                gradeImg.setImageResource(R.drawable.ic_12);
+            } else if (gradeInt == 15) {
+                gradeImg.setImageResource(R.drawable.ic_15);
+            } else if (gradeInt == 19) {
+                gradeImg.setImageResource(R.drawable.ic_19);
+            } else {
+                gradeImg.setImageResource(R.drawable.ic_all);
+            }
+
+        }
+
 
         //counts text live
         TextWatcher textWatcher = new TextWatcher() {
@@ -45,12 +72,12 @@ public class WriteCommentsActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-              count =  s.length();
-              if(count > 100) {
-                  showToast("100글자를 초과할 수 없습니다.");
-                 //초과되면 더 쓸 수 없게 멈추게 만들어보기
-                  // commentSection.setEnabled(false);
-              }
+                count = s.length();
+                if (count > 100) {
+                    showToast("100글자를 초과할 수 없습니다.");
+                    //초과되면 더 쓸 수 없게 멈추게 만들어보기
+                    // commentSection.setEnabled(false);
+                }
             }
 
             @Override
@@ -65,17 +92,15 @@ public class WriteCommentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 float x = 0.0f;
-                if(commentSection.getText()==null && ratingBar.getRating() == x){
+                if (commentSection.getText() == null && ratingBar.getRating() == x) {
                     showToast("한줄평을 입력하세요");
-                }else{
-                        getIntent().putExtra("comment",commentSection.getText().toString());
-                        getIntent().putExtra("rating",ratingBar.getRating());
-                        startActivity(getIntent());
-                        showToast("저장되었습니다.");
-                        finish();
-
-                    }
-
+                } else {
+                    getIntent().putExtra("comment", commentSection.getText().toString());
+                    getIntent().putExtra("rating", ratingBar.getRating());
+                    startActivity(getIntent());
+                    showToast("저장되었습니다.");
+                    finish();
+                }
             }
         });
 
@@ -89,8 +114,15 @@ public class WriteCommentsActivity extends AppCompatActivity {
         });
 
     }
-    public void showToast(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
 
+    public void showToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public boolean onNavigateUp() {
+        finish();
+        return true;
     }
 }

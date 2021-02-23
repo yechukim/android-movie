@@ -37,7 +37,6 @@ public class MovieFragment extends Fragment {
     private static final String TAG = "영화";
     // ui view
     ViewPager viewPager;
-    TabLayout tabLayout;
     MyPagerAdapter adapter;
     FragmentManager fm;
 
@@ -62,7 +61,6 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewPager = view.findViewById(R.id.pager);
-        tabLayout = view.findViewById(R.id.tab_layout);
 
         String url = "http://boostcourse-appapi.connect.or.kr:10000";
         sendRequest(url);

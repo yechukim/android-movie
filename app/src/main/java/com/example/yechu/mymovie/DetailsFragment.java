@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -72,16 +76,18 @@ public class DetailsFragment extends Fragment {
     //volley
     RequestQueue queue;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //툴바 변경
+        ((MainActivity)(getActivity())).toolbar.setTitle("상세화면");
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View details = inflater.inflate(R.layout.frag_btn_detail, container, false);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("영화 상세");
-
-
         return details;
     }
 
@@ -89,15 +95,18 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         write = view.findViewById(R.id.write);
         see_all = view.findViewById(R.id.see_all);
+
         //작성하기 클릭
         write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), WriteCommentsActivity.class);
-                startActivityForResult(intent, 100);
-
+                intent.putExtra("movie", plot_title.getText());
+                intent.putExtra("grade", grade);
+                startActivity(intent);
             }
         });
 
@@ -110,6 +119,7 @@ public class DetailsFragment extends Fragment {
 
             }
         });
+
         //정보 뿌릴 캐스팅 및 가져오기
         poster = view.findViewById(R.id.poster);
         plot_title = view.findViewById(R.id.title);
@@ -167,13 +177,13 @@ public class DetailsFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AllCommentsActivity.class);
                 //이미 정보 추가되어 있는 상태
-                if(list!=null){
-                    intent.putParcelableArrayListExtra("list",list);
-                    intent.putExtra("movie",plot_title.getText());
-                    intent.putExtra("ratingBar",rate);
-                   // Log.d(TAG, "onClick: "+ratingBar.getRating());
-                    intent.putExtra("ratingNum",rating_num.getText());
-                    intent.putExtra("grade",grade);
+                if (list != null) {
+                    intent.putParcelableArrayListExtra("list", list);
+                    intent.putExtra("movie", plot_title.getText());
+                    intent.putExtra("ratingBar", rate);
+                    // Log.d(TAG, "onClick: "+ratingBar.getRating());
+                    intent.putExtra("ratingNum", rating_num.getText());
+                    intent.putExtra("grade", grade);
                     startActivityForResult(intent, 200);
                 }
 
@@ -376,16 +386,6 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-
-        } else if (requestCode == 200) {
-
-        }
-
-    }
 
 
 }

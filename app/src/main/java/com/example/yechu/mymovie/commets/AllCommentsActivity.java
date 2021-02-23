@@ -1,7 +1,9 @@
 package com.example.yechu.mymovie.commets;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -27,10 +30,13 @@ public class AllCommentsActivity extends AppCompatActivity {
     private static final String TAG = "all";
 
     //ui
-    TextView title, ratingNum;
+    TextView title, ratingNum, writeText;
     ImageView ageImage;
     RatingBar ratingBars;
+    Toolbar toolbar;
 
+    //bundle
+    String age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +46,19 @@ public class AllCommentsActivity extends AppCompatActivity {
         ratingNum = findViewById(R.id.ratingNum);
         ageImage = findViewById(R.id.age);
         ratingBars = findViewById(R.id.ratingBars);
+        writeText = findViewById(R.id.writeText);
+
+        //toolbar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+
+        assert ab != null;
+        ab.setDisplayShowHomeEnabled(true);
 
 
         //뒤로 액션바
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //load all comments
         ListViewAdapter listViewAdapter = new ListViewAdapter();
@@ -68,10 +83,10 @@ public class AllCommentsActivity extends AppCompatActivity {
         all_lists.setAdapter(listViewAdapter);
 
         Float bar = bundle.getFloat("ratingBar");
-        Log.d(TAG, "onCreate: "+bar);
+        Log.d(TAG, "onCreate: " + bar);
         String num = bundle.getString("ratingNum");
         String title1 = bundle.getString("movie");
-        String age = bundle.getString("grade");
+        age = bundle.getString("grade");
         int ageInt = Integer.parseInt(age);
 
         //리스트 위에 제목, 평점, 연령제한 아이콘 설정
@@ -89,18 +104,22 @@ public class AllCommentsActivity extends AppCompatActivity {
             ageImage.setImageResource(R.drawable.ic_all);
         }
 
-
+        //작성하기 클릭
+        writeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WriteCommentsActivity.class);
+                intent.putExtra("movie", title.getText());
+                intent.putExtra("grade", age);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
 

@@ -18,7 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        FragmentCallback,
+        FragmentManager.OnBackStackChangedListener // 프래그먼트에서 액션바 타이틀 바꿔주기 위해서?
+{
+    private static final String TAG = "main";
     //FragmentCallback은 만든 인터페이스
 
     //fragment
@@ -41,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //toolbar
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         //drawer toggle
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -116,4 +122,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    @Override
+    public void onBackStackChanged() {
+
+        try {
+            List<Fragment> frags = getSupportFragmentManager().getFragments();
+
+            for (int i = 0; i < frags.size(); i++) {
+                if (frags.get(i).getTag().equals(DetailsFragment.class.getSimpleName())) {
+                    toolbar.setTitle("영화 상세 화면");
+                }
+            }
+        } catch (Exception e) {
+            e.getMessage();
+            Log.e(TAG, "onBackStackChanged: ", e.getCause());
+        }
+    }
 }
