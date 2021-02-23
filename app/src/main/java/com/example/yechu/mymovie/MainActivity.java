@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
-    private static final String TAG = "main";
     //FragmentCallback은 만든 인터페이스
 
     //fragment
@@ -26,9 +26,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     APIFragment movieAPI;
     BookFragment movieBook;
 
+    private static final String FRAG_TAG = "root frag";
+
     //drawer
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +63,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        //   int count = getSupportFragmentManager().getBackStackEntryCount();
-
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-
     }
 
 
@@ -108,7 +108,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 

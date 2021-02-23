@@ -71,8 +71,6 @@ public class MovieFragment extends Fragment {
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
-
-       // Log.d(TAG, "viewpager 어댑터 세팅?");
     }
 
     public void sendRequest(String url) {
@@ -106,7 +104,7 @@ public class MovieFragment extends Fragment {
                                     String title = jsonObject.isNull("title") ? "" : jsonObject.optString("title");
                                     mMovie.setTitle(title);
 
-                                    String user_rating =  jsonObject.isNull("audience_rating") ? "" : jsonObject.optString("audience_rating");
+                                    String user_rating =  jsonObject.isNull("reservation_rate") ? "" : jsonObject.optString("reservation_rate");
                                     mMovie.setBook_rate(user_rating);
 
                                     String grade =  jsonObject.isNull("grade") ? "" : jsonObject.optString("grade");
@@ -138,7 +136,7 @@ public class MovieFragment extends Fragment {
         SingleFragment fragment = new SingleFragment();
         fragment.setArguments(createBundle(index, movie));
         adapter.addItem(fragment);
-        adapter.notifyDataSetChanged();//이걸 onCreate에 하니까 안됐었다.
+        adapter.notifyDataSetChanged();//이걸 onCreate 에 하니까 안됐었다.
         return fragment;
     }
 

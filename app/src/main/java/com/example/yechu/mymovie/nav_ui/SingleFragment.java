@@ -56,7 +56,6 @@ public class SingleFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         fm = getChildFragmentManager();
-
         super.onAttach(context);
     }
 
@@ -83,6 +82,11 @@ public class SingleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //inflate 된 뷰에서 연결해줌
         mImage = view.findViewById(R.id.image);
+//        //로딩 gif 기본
+//        Glide.with(this)
+//                .load("https://media.giphy.com/media/3o7bu3XilJ5BOiSGic/giphy.gif")
+//                .into(mImage);
+
         mTitle = view.findViewById(R.id.title);
         mAgeLimit = view.findViewById(R.id.bookRate);
         mBookRate = view.findViewById(R.id.age);
@@ -99,11 +103,11 @@ public class SingleFragment extends Fragment {
 
             mTitle.setText(title);
             Glide.with(getContext()).load(image_url)
-                    .placeholder(R.drawable.ic_launcher_foreground).error(R.drawable.ic_launcher_foreground) //로딩중 + 에러날때 이미지
+                    .placeholder(R.drawable.loading).error(R.drawable.loading) //로딩중 + 에러날때 이미지
                     .override(700,700)
                     .into(mImage);
             mAgeLimit.setText(age_limit+ "세 관람가");
-            mBookRate.setText("예매율: " + user_rating);
+            mBookRate.setText("예매율: " + user_rating +"%");
         }
 
         btn_details.setOnClickListener(new View.OnClickListener() {
@@ -112,18 +116,14 @@ public class SingleFragment extends Fragment {
                 Fragment dFragment = new DetailsFragment();
                 //메인 액티비티의 메소드로 프래그먼트 교체함
                 ((MainActivity)getActivity()).replaceFragment(dFragment);
-                sendBundle(index);
-                Log.d(TAG, "onClick: index 확인 "+ index);
+
+                Bundle bundle = new Bundle();
+                int id = index+1;
+                bundle.putInt("bundle_id", id);
+                dFragment.setArguments(bundle);
             }
         });
     }
-
-    private Bundle sendBundle(int index) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("bundle_key", index+1);// id 는 1부터 시작
-        return bundle;
-    }
-
 
     @Override
     public void onDestroy() {

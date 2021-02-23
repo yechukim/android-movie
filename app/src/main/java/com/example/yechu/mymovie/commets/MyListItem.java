@@ -1,36 +1,50 @@
 package com.example.yechu.mymovie.commets;
 
-import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class MyListItem {
+public class MyListItem implements Parcelable {
 
-    private Drawable userImage;
     private String userId;
-    private String comment;
-    private String comment_time;
+    private String userName;
+    private String content;
+    private String time;
     private float comment_rating;
     private String recommend;
+
+    public MyListItem(String userId, String userName, String content, String time, float comment_rating, String recommend) {
+        this.userId = userId;
+        this.userName = userName;
+        this.content = content;
+        this.time = time;
+        this.comment_rating = comment_rating;
+        this.recommend = recommend;
+    }
 
     MyListItem() {
 
     }
 
-    public MyListItem(Drawable userImage, String userId, String comment, String comment_time, float comment_rating, String recommend) {
-        this.userImage = userImage;
-        this.userId = userId;
-        this.comment = comment;
-        this.comment_time = comment_time;
-        this.comment_rating = comment_rating;
-        this.recommend = recommend;
+    protected MyListItem(Parcel in) {
+        userId = in.readString();
+        userName = in.readString();
+        content = in.readString();
+        time = in.readString();
+        comment_rating = in.readFloat();
+        recommend = in.readString();
     }
 
-    public Drawable getUserImage() {
-        return userImage;
-    }
+    public static final Creator<MyListItem> CREATOR = new Creator<MyListItem>() {
+        @Override
+        public MyListItem createFromParcel(Parcel in) {
+            return new MyListItem(in);
+        }
 
-    public void setUserImage(Drawable userImage) {
-        this.userImage = userImage;
-    }
+        @Override
+        public MyListItem[] newArray(int size) {
+            return new MyListItem[size];
+        }
+    };
 
     public String getUserId() {
         return userId;
@@ -40,20 +54,28 @@ public class MyListItem {
         this.userId = userId;
     }
 
-    public String getComment() {
-        return comment;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getComment_time() {
-        return comment_time;
+    public String getContent() {
+        return content;
     }
 
-    public void setComment_time(String comment_time) {
-        this.comment_time = comment_time;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public float getComment_rating() {
@@ -70,5 +92,21 @@ public class MyListItem {
 
     public void setRecommend(String recommend) {
         this.recommend = recommend;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userId);
+        dest.writeString(userName);
+        dest.writeString(content);
+        dest.writeString(time);
+        dest.writeFloat(comment_rating);
+        dest.writeString(recommend);
     }
 }

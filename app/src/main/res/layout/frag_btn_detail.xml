@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailActivity">
+    tools:context=".DetailsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                     android:id="@+id/ic_hates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="60dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toEndOf="@+id/ic_likes"
                     app:layout_constraintTop_toBottomOf="@+id/genre_time"
@@ -85,15 +85,15 @@
 
                 <ImageView
                     android:id="@+id/poster"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.118"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.06"
-                    app:srcCompat="@drawable/image11" />
+                    app:srcCompat="@drawable/loading"/>
 
                 <TextView
                     android:id="@+id/release_date"
@@ -141,6 +141,7 @@
                         android:text="예매율" />
 
                     <TextView
+                        android:id="@+id/reserve_grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5위 1.8% " />
@@ -178,8 +179,7 @@
                             android:id="@+id/rate_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="8.2" />
+                            android:layout_marginLeft="5dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -200,9 +200,9 @@
                         android:text="누적관객수" />
 
                     <TextView
+                        android:id="@+id/ppl"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="839,399명" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -228,8 +228,8 @@
 
                 <TextView
                     android:id="@+id/plot_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="10dp"
                     android:text="@string/plot_details"
@@ -364,8 +364,10 @@
 
                 <ListView
                     android:id="@+id/my_list"
+                    android:scrollbars="vertical"
+                    android:smoothScrollbar="true"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
@@ -415,7 +417,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/book"
+                    android:id="@+id/btn_reserve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -431,6 +433,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

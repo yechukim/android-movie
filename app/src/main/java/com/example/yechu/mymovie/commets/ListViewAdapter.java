@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.yechu.mymovie.R;
-import com.example.yechu.mymovie.commets.MyListItem;
 
 import java.util.ArrayList;
 
@@ -48,30 +46,32 @@ public class ListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.c_list, parent, false);
         }
 
-        ImageView userImage = convertView.findViewById(R.id.userImage);
         TextView userId = convertView.findViewById(R.id.userId);
+        TextView writer = convertView.findViewById(R.id.writer);
         TextView comment = convertView.findViewById(R.id.comment);
+        TextView time = convertView.findViewById(R.id.time);
         RatingBar commentRating = convertView.findViewById(R.id.comment_rating);
         TextView recommend = convertView.findViewById(R.id.recommendCount);
-        TextView report = convertView.findViewById(R.id.report);
 
         MyListItem myListItem = itemArrayList.get(position);
 
-        // userImage.setImageResource(myListItem.getUserImage());
         userId.setText(myListItem.getUserId());
-        comment.setText(myListItem.getComment());
+        writer.setText(myListItem.getUserName());
+        comment.setText(myListItem.getContent());
         commentRating.setRating(myListItem.getComment_rating());
         recommend.setText(myListItem.getRecommend());
-
+        time.setText(myListItem.getTime());
         return convertView;
     }
 
 
-    public void addComment(String userId, String comment, float ratingBar, int recommendCount) {
+    public void addComment(String userId, String writerName, String comment, String time, float ratingBar, int recommendCount) {
         MyListItem item = new MyListItem();
-        item.setUserId(userId);
-        item.setComment(comment);
+        item.setUserId("사용자 ID: "+userId);
+        item.setUserName("작성자: "+writerName);
+        item.setContent(comment);
         item.setComment_rating(ratingBar);
+        item.setTime(time+"에 작성됨");
         item.setRecommend(String.valueOf(recommendCount));
         itemArrayList.add(item);
     }

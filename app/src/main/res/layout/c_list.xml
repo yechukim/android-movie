@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/userImage"
@@ -26,6 +26,14 @@
             android:textColor="#000"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="writer"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,12 +48,12 @@
                 android:text="10분전" />
 
             <RatingBar
-                android:stepSize="1"
                 android:id="@+id/comment_rating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rating="5" />
+                android:rating="5"
+                android:stepSize="1" />
         </LinearLayout>
 
 
@@ -93,4 +101,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
