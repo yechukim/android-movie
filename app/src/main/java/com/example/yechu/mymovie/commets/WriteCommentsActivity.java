@@ -1,12 +1,9 @@
 package com.example.yechu.mymovie.commets;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +12,22 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yechu.mymovie.MainActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.yechu.mymovie.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class WriteCommentsActivity extends AppCompatActivity {
 
+    private static final String TAG = "write";
     //ui
     TextView title;
     EditText commentSection;
@@ -27,8 +35,8 @@ public class WriteCommentsActivity extends AppCompatActivity {
     Button saveBtn, cancelBtn;
     ImageView gradeImg;
 
-    //counts 100
-    int count = 0;
+    //movie info
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +54,10 @@ public class WriteCommentsActivity extends AppCompatActivity {
 
         if (bundle != null) {
             String mTitle = bundle.getString("movie");
+            id = bundle.getInt("id2");
             String grade = bundle.getString("grade");
             int gradeInt = Integer.parseInt(grade);
+
             title.setText(mTitle);
 
             if (gradeInt == 12) {
@@ -59,9 +69,7 @@ public class WriteCommentsActivity extends AppCompatActivity {
             } else {
                 gradeImg.setImageResource(R.drawable.ic_all);
             }
-
         }
-
 
         //counts text live
         TextWatcher textWatcher = new TextWatcher() {
@@ -92,12 +100,18 @@ public class WriteCommentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 float x = 0.0f;
-                if (commentSection.getText() == null && ratingBar.getRating() == x) {
-                    showToast("한줄평을 입력하세요");
+                if (commentSection.getText() == null || ratingBar.getRating() == x) {
+                    showToast("한줄평 또는 평점은 필수 입력사항입니다.");
+
                 } else {
-                    getIntent().putExtra("comment", commentSection.getText().toString());
-                    getIntent().putExtra("rating", ratingBar.getRating());
-                    startActivity(getIntent());
+                   /* getIntent().putExtra("comment", commentSection.getText().toString());
+                    getIntent().putExtra("rating", ratingBar.getRating());*/
+
+                    String comment = commentSection.getText().toString();
+                    float rating = ratingBar.getRating();
+                    String writer = "yechu";
+                    //서버에 전송 post
+                    sendCommentPost(writer, String.valueOf(rating), comment, id);
                     showToast("저장되었습니다.");
                     finish();
                 }
@@ -112,6 +126,48 @@ public class WriteCommentsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    public void sendCommentPost(String writer, String rating, String contents, int id) {
+        String postUrl = "http://boostcourse-appapi.connect.or.kr:10000/movie/createComment";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("id", id);
+            postData.put("writer", writer);
+            postData.put("rating", rating);
+            postData.put("contents", contents);
+            String jsonString = postData.toString();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                postUrl, postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.toString());
+                            Log.d(TAG, "onResponse: "+jsonObject);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "onErrorResponse: ", error);
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
 
     }
 

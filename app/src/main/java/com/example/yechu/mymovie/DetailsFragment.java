@@ -68,7 +68,7 @@ public class DetailsFragment extends Fragment {
     int like, dislike, count_hates, count_likes;
     String grade;
     Float rate;
-
+    String movieId;
     ListView my_list;
     //버튼 누를 때 보낼 리스트아이템 List
     ArrayList<MyListItem> list = new ArrayList<>();
@@ -82,8 +82,6 @@ public class DetailsFragment extends Fragment {
         //툴바 변경
         ((MainActivity)(getActivity())).toolbar.setTitle("상세화면");
     }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,6 +104,8 @@ public class DetailsFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), WriteCommentsActivity.class);
                 intent.putExtra("movie", plot_title.getText());
                 intent.putExtra("grade", grade);
+                intent.putExtra("id2",id);
+                Log.d(TAG, "onClick: "+id);
                 startActivity(intent);
             }
         });
@@ -162,6 +162,7 @@ public class DetailsFragment extends Fragment {
         //리스트 설정
         my_list = view.findViewById(R.id.my_list);
         listViewAdapter = new ListViewAdapter();
+
         //리스트뷰 스크롤되게 설정함
         my_list.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -212,7 +213,7 @@ public class DetailsFragment extends Fragment {
                                 //결과 부분
                                 JSONObject object = result.getJSONObject(i);
 
-                                String id = object.getString("id");
+                                movieId = object.getString("id");
                                 String content = object.getString("contents");
                                 String writer = object.getString("writer");
                                 String writeTime = object.getString("time");
@@ -221,10 +222,10 @@ public class DetailsFragment extends Fragment {
 
                                 //번들에 보낼꺼 저장하기
                                 //위에  List<MyListItem> list = new ArrayList<>();로 선언함
-                                list.add(new MyListItem(id, writer, content, writeTime, Float.parseFloat(rating), recommend));
+                                list.add(new MyListItem(movieId, writer, content, writeTime, Float.parseFloat(rating), recommend));
 
                                 //이건 디테일 프래그먼트에서 보여지는 부분이고
-                                listViewAdapter.addComment(id, writer, content, writeTime, Float.parseFloat(rating), Integer.parseInt(recommend));
+                                listViewAdapter.addComment(movieId, writer, content, writeTime, Float.parseFloat(rating), Integer.parseInt(recommend));
                                 listViewAdapter.notifyDataSetChanged();
                                 //   Log.d(TAG, "onResponse: "+object);
                             }
@@ -366,7 +367,6 @@ public class DetailsFragment extends Fragment {
                                     num_hates.setText(String.valueOf(count_hates));
                                 }
                             });
-
                         } catch (JSONException e) {
                             e.getMessage();
                         }
@@ -383,11 +383,5 @@ public class DetailsFragment extends Fragment {
         request.setShouldCache(false);
         //큐에 추가
         queue.add(request);
-
     }
-
-
-
 }
-
-
